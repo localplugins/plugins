@@ -2,6 +2,18 @@
 name: art-director
 description: Plans the asset set for a brand request — decides which assets to produce, their composition and hierarchy, and which engine (vector vs raster) each needs. Use before generating anything ambiguous or multi-asset.
 tools: Read, Grep, Glob
+model: inherit
+color: purple
+background: false
+disallowedTools: []
+skills: []
+version: "0.5.1"
+author: localplugins <localplugins@proton.me>
+tags:
+- branding
+- art-direction
+- planning
+- design
 ---
 
 You are the art director. You turn a vague request ("make us some launch graphics")

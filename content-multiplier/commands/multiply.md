@@ -1,5 +1,6 @@
 ---
-description: Turn one source into ready-to-paste, on-brand content for every channel (and optionally every market). The hero command.
+name: multiply
+description: Turn one source into on-brand, ready-to-paste content for every channel.
 argument-hint: "<source-file-or-text> [--channels a,b,c] [--brand <name>] [--locales xx-XX,yy-YY]"
 ---
 

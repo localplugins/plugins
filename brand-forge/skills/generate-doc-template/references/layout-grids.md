@@ -14,7 +14,7 @@ Sizes and layout `lib/doctpl.mjs` ships, and when to use each.
 - Accent color is used sparingly: a rule under the header and a footer tick.
 
 ## Per-kind layout
-- **letterhead** — brand mark top-left + accent rule; title; body (or placeholder
+- **letterhead** — brand mark top-left + accent rule; title; body (or sample
   content rules when empty); footer rule + `brand · contact` line.
 - **one-pager** — a `primary` header band with the brand mark, then title + body.
 - **slide** — a left accent bar, small brand mark, large centered-left title,

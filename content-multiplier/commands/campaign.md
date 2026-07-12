@@ -1,5 +1,6 @@
 ---
-description: Turn a campaign brief into a coordinated multi-channel content set plus a posting calendar.
+name: campaign
+description: Turn a brief into a coordinated multi-channel content set and calendar.
 argument-hint: "<brief-file-or-text> [--channels a,b,c] [--weeks N] [--brand <name>] [--locales xx-XX,...]"
 ---
 

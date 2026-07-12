@@ -1,5 +1,6 @@
 ---
-description: Transcreate existing content into one or more languages/markets, honoring per-locale brand and compliance rules.
+name: localize
+description: Transcreate content into other languages, honoring per-locale brand rules.
 argument-hint: "<content-file-or-text> --locales xx-XX,yy-YY [--brand <name>] [--back-translation]"
 ---
 

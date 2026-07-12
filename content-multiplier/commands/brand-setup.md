@@ -1,5 +1,6 @@
 ---
-description: Create or update your brand profile (voice, messaging, style, compliance) that all content generation respects.
+name: brand-setup
+description: Create or update the brand profile that all content generation respects.
 argument-hint: "[--brand <name>] [--locale <xx-XX>] [path-to-example-content ...]"
 ---
 

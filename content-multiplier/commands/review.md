@@ -1,5 +1,6 @@
 ---
-description: Audit existing or draft content against the brand voice, style guide, and compliance rules. Returns a scorecard and a redline.
+name: review
+description: Audit content against brand, style, and compliance; return a redline.
 argument-hint: "<content-file-or-text> [--brand <name>] [--locale <xx-XX>]"
 ---
 

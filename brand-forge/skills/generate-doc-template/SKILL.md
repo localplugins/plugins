@@ -1,26 +1,52 @@
 ---
 name: generate-doc-template
-description: Generate on-brand document and deck templates (letterhead, slide, one-pager) as SVG from the active brand profile, with editable title/subtitle/body zones. Use when the user asks for a letterhead, a slide/deck master, or a branded one-pager.
+description: |
+  Generates on-brand document and deck templates — letterhead, slide, and
+  one-pager — as SVG from the active brand profile, with editable title,
+  subtitle, and body zones. Vector output needs no account, key, or network.
+  Use when a user asks for a letterhead, a slide or deck master, or a branded
+  one-pager.
+  Trigger with "make a letterhead", "branded slide", or "/brand-make letterhead".
+allowed-tools: Read, Write, Glob, Bash(node:*)
+argument-hint: '[kind] [title] [optional subtitle] [optional body]'
+version: "0.5.1"
+author: localplugins <localplugins@proton.me>
+license: MIT
+compatibility: Designed for Claude Code
+tags:
+- branding
+- documents
+- svg
+- templates
+- design
 ---
 
-# generate-doc-template
+# Generate Doc Template
 
-Produce a branded, print- or screen-ready document template as SVG. Vector,
-zero-permission — no keys, no network. Content lives in editable zones.
+Generates a branded, print- or screen-ready document template as SVG from the active brand profile, with editable content zones.
 
-## Inputs
-- The active brand profile (via `lib/brand.mjs` → `resolveActive` + `loadProfile`).
-- `title` (usually required), optional `subtitle` and `body`, and a `kind`.
+## Overview
 
-## Kinds
-`letterhead` (816×1056, US-Letter portrait), `slide` (1280×720, 16:9), `one-pager`
-(816×1056). Default: `letterhead`. See `references/layout-grids.md`.
+The generate-doc-template skill turns a title (and optional subtitle and body) into a
+branded document or deck master. Output is vector SVG, so it scales cleanly, prints
+crisply, and needs no account, key, or network call. The generator (`lib/doctpl.mjs`)
+draws a shared margin grid, brand mark, and accent rules, then fills the requested
+kind; the skill resolves the active profile, picks the kind, runs the generator, and
+saves the file. Convert to PDF or PNG downstream with `/brand-export`.
 
-## Procedure
-1. Resolve + load + validate the active profile. Stop with a clear message if
-   validation fails.
-2. Pick the kind (ask if unclear; default `letterhead`).
-3. Call the generator:
+## Prerequisites
+
+- An active brand profile created with `/brand-new` (a `brand/` directory, or `brands/[slug]/`). Read loads its `color-system.json` and `typography.json`.
+- Node.js on the PATH — the generator runs as `node lib/doctpl.mjs`.
+- Write access to an `output/` directory in the working repository.
+- A title string; subtitle and body are optional parameters.
+
+## Instructions
+
+1. Run `/brand-status` to confirm the active brand; if none exists, tell the user to run `/brand-new` and stop.
+2. Use Glob to locate the active brand directory, then Read and validate the profile with `validateProfile`. Stop with the offending field if validation fails.
+3. Choose the kind — `letterhead` (default), `slide`, or `one-pager`. Ask the user when it is unclear.
+4. Generate the template by running the node generator:
 
    ```js
    import { loadProfile } from '../../lib/brand.mjs';
@@ -29,17 +55,61 @@ zero-permission — no keys, no network. Content lives in editable zones.
    const { svg, kind } = buildDoc(profile, {
      kind: 'letterhead',
      title: 'Offer of Employment',
-     body: 'Dear candidate, we are delighted to…',
+     body: 'Dear candidate, we are delighted to extend an offer.',
    });
    ```
 
-4. Write to `output/<slug>-<kind>.svg`.
-5. Hand the result to the `visual-guardian` subagent for a palette/contrast/type pass.
-6. Report the saved path; point out the editable zones (`id="title"`,
-   `id="subtitle"`, `id="body"`). A letterhead with no `body` ships with placeholder
-   content rules the user can replace.
+5. Write the result with the Write tool to `output/[slug]-[kind].svg`.
+6. Hand the file to the `visual-guardian` subagent for a palette, contrast, and type pass; apply its fixes or surface its flags.
+7. Report the saved path and point out the editable zones so the user can customize or adapt the copy: `id="title"`, `id="subtitle"`, and `id="body"`.
 
-## Notes
-- All text is HTML-escaped; long titles and body copy wrap automatically.
-- Vector output scales cleanly and is print-safe; convert to PDF/PNG downstream
-  (PNG export is Plan 5, optional `sharp`).
+## Output
+
+One SVG file under `output/`, named for the slug and kind:
+
+```text
+output/northwind-letterhead.svg
+```
+
+- Sized to the chosen kind — `letterhead` and `one-pager` at 816×1056 (US Letter @96dpi), `slide` at 1280×720 (16:9).
+- Content sits in editable zones — `id="title"`, `id="subtitle"`, `id="body"` — that wrap automatically. A letterhead with no body ships with sample content rules the user replaces.
+- All copy is HTML-escaped before it enters the markup; colors come from the palette only.
+
+## Error Handling
+
+| Condition | Behavior |
+|-----------|----------|
+| No active brand profile | Stop and direct the user to `/brand-new`. |
+| Profile fails `validateProfile` | Report the offending field and stop. |
+| Title missing | Ask the user for a title before generating. |
+| Unknown kind requested | List the three supported kinds and ask the user to pick one. |
+| Body font unavailable at render time | The declared fallback in `typography.json` applies — flag the substitution, never mismatch silently. |
+
+To troubleshoot a crowded page, verify the copy against the margins in `references/layout-grids.md`, then re-run and re-check with the guardian.
+
+## Examples
+
+**Example — formal letterhead**
+
+> /brand-make a letterhead for an offer letter
+
+Builds an 816×1056 letterhead with the brand mark, an accent rule, the title, and the body, saved as `output/northwind-letterhead.svg`.
+
+**Example — deck title slide**
+
+> /brand-make a title slide for our pitch deck
+
+Generates a 1280×720 slide with a left accent bar, the brand mark, and a large title zone.
+
+**Example — executive one-pager**
+
+> /brand-make a one-pager summarizing Q3 results
+
+Produces an 816×1056 one-pager with a primary header band, then title and body zones ready to edit.
+
+## Resources
+
+- `references/layout-grids.md` — every kind's size, the shared grid, per-kind layout, editable zones, and how to add a kind.
+- Sibling skills: generate-logo for marks, and generate-social for platform posts — route between them with the `/brand-make` command.
+- [Paper sizes reference (ISO 216)](https://en.wikipedia.org/wiki/ISO_216) — background on the print dimensions used.
+- [Agent Skills documentation](https://code.claude.com/docs/en/skills) — how skills are authored and invoked.
