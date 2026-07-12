@@ -1,0 +1,9 @@
+# Generated content output (created in user projects, never committed here)
+content/output/
+# OS / editor cruft
+.DS_Store
+*.swp
+__pycache__/
+
+# IDE
+.idea/

@@ -1,0 +1,8 @@
+{
+  "name": "money-map",
+  "description": "Understand your money: hand it any bank or card CSV export and it categorizes, summarizes cash flow, and flags anomalies — locally, never linked to your accounts.",
+  "version": "0.2.1",
+  "author": { "name": "localplugins" },
+  "license": "MIT",
+  "keywords": ["finance", "money", "budget", "transactions", "categorize", "reconcile", "csv"]
+}

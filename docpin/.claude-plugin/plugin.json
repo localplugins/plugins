@@ -1,0 +1,13 @@
+{
+  "name": "docpin",
+  "version": "0.2.0",
+  "description": "Grounds Claude in documentation matched to the library versions installed in your project — across npm, PyPI, crates.io, and Go. Zero-config, no API key.",
+  "author": {
+    "name": "docpin",
+    "url": "https://github.com/localplugins/plugins"
+  },
+  "homepage": "https://github.com/localplugins/plugins/tree/main/docpin",
+  "repository": "https://github.com/localplugins/plugins",
+  "license": "MIT",
+  "keywords": ["documentation", "versions", "npm", "pypi", "crates", "go", "context"]
+}

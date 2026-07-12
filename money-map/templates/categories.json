@@ -1,0 +1,12 @@
+{
+  "categories": ["Income", "Groceries", "Dining", "Software", "Transport", "Rent", "Utilities", "Subscriptions", "Fees", "Health", "Shopping", "Uncategorized"],
+  "rules": [
+    { "match": "(?i)payroll|salary|deposit|stripe payout", "category": "Income" },
+    { "match": "(?i)stripe|aws|github|notion|figma", "category": "Software" },
+    { "match": "(?i)whole foods|trader joe|grocery|safeway|aldi", "category": "Groceries" },
+    { "match": "(?i)uber|lyft|shell|chevron|bp |transit", "category": "Transport" },
+    { "match": "(?i)netflix|spotify|hulu|disney\\+|prime", "category": "Subscriptions" },
+    { "match": "(?i)rent|landlord", "category": "Rent" },
+    { "match": "(?i)fee|interest charge|overdraft", "category": "Fees" }
+  ]
+}

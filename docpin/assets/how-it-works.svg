@@ -1,0 +1,29 @@
+<svg viewBox="0 0 1040 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="1040" height="150">
+<title id="t">How docpin works</title>
+<desc id="d">Two layers: on SessionStart, a local hook reads lockfiles and builds a version map with no network access. Then the docpin skill or the /docs command resolves the installed version, fetches version-pinned docs, and grounds the answer with a citation.</desc>
+<rect width="1040" height="150" fill="#0d1117"/>
+<g font-family="system-ui,-apple-system,sans-serif" font-size="17" fill="#e6edf3" text-anchor="middle">
+  <rect x="20" y="16" width="220" height="55" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="130" y="40">SessionStart hook</text><text x="130" y="59" font-size="12" fill="#8b949e">reads lockfiles · local only</text>
+  <rect x="280" y="16" width="220" height="55" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="390" y="40">Version map</text><text x="390" y="59" font-size="12" fill="#8b949e">npm · PyPI · crates · Go</text>
+</g>
+<g stroke="#6e7681" stroke-width="2" fill="#6e7681">
+  <line x1="244" y1="43" x2="272" y2="43"/><path d="M272 38 L280 43 L272 48 Z"/>
+</g>
+<g font-family="system-ui,-apple-system,sans-serif" font-size="17" fill="#e6edf3" text-anchor="middle">
+  <rect x="20" y="94" width="200" height="55" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="120" y="118">skill / /docs</text><text x="120" y="137" font-size="12" fill="#8b949e">model or explicit pull</text>
+  <rect x="260" y="94" width="200" height="55" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="360" y="118">Resolve version</text><text x="360" y="137" font-size="12" fill="#8b949e">lockfile → registry</text>
+  <rect x="500" y="94" width="220" height="55" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="610" y="118">Fetch pinned docs</text><text x="610" y="137" font-size="12" fill="#8b949e">docs.rs · pkg.go.dev · GitHub</text>
+  <rect x="760" y="94" width="260" height="55" rx="12" fill="#161b22" stroke="#3fb950"/>
+  <text x="890" y="118">Grounded code</text><text x="890" y="137" font-size="12" fill="#8b949e">+ version &amp; source citation</text>
+</g>
+<g stroke="#6e7681" stroke-width="2" fill="#6e7681">
+  <line x1="220" y1="121" x2="252" y2="121"/><path d="M252 116 L260 121 L252 126 Z"/>
+  <line x1="460" y1="121" x2="492" y2="121"/><path d="M492 116 L500 121 L492 126 Z"/>
+  <line x1="720" y1="121" x2="752" y2="121"/><path d="M752 116 L760 121 L752 126 Z"/>
+</g>
+</svg>

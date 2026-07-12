@@ -1,0 +1,10 @@
+{
+  "name": "green-keeper",
+  "description": "Keeps your tests and types green while you code — fixes red with minimal changes, maintains behavioral tests, and won't let you walk away from red. No fake-green.",
+  "version": "0.2.1",
+  "author": {
+    "name": "localplugins"
+  },
+  "license": "MIT",
+  "keywords": ["testing", "tests", "typescript", "type-check", "tdd", "ci", "developer-tools"]
+}

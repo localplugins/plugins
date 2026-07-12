@@ -1,0 +1,39 @@
+{
+  "name": "localplugins",
+  "description": "A small, community-built collection of Claude Code plugins. Three run entirely on your machine; docpin fetches version-matched library docs from public registries — always cited.",
+  "owner": {
+    "name": "localplugins"
+  },
+  "plugins": [
+    {
+      "name": "content-multiplier",
+      "source": "./content-multiplier",
+      "description": "Turn one idea, post, or transcript into a week of on-brand content across every channel and language — no accounts, no API keys, no setup.",
+      "version": "0.2.1"
+    },
+    {
+      "name": "green-keeper",
+      "source": "./green-keeper",
+      "description": "Keeps your tests and types green while you code — fixes red with minimal changes, maintains behavioral tests, and won't let you walk away from red. No fake-green.",
+      "version": "0.2.1"
+    },
+    {
+      "name": "money-map",
+      "source": "./money-map",
+      "description": "Understand your money: hand it any bank or card CSV export and it categorizes, summarizes cash flow, and flags anomalies — locally, never linked to your accounts.",
+      "version": "0.2.1"
+    },
+    {
+      "name": "docpin",
+      "source": "./docpin",
+      "description": "Ground Claude in docs matched to the library versions installed in your project (npm, PyPI, crates.io, Go). Fetches from public registries on demand, always cited.",
+      "version": "0.2.0"
+    },
+    {
+      "name": "brand-forge",
+      "source": "./brand-forge",
+      "description": "Generate on-brand logos, social templates, and marketing graphics — vector assets run locally with no accounts or keys; AI imagery is opt-in.",
+      "version": "0.5.1"
+    }
+  ]
+}

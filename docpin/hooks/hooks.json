@@ -1,0 +1,8 @@
+{
+  "description": "docpin: on session start, inject a local-only version map of the project's installed dependencies.",
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.sh\"" } ] }
+    ]
+  }
+}
