@@ -1,6 +1,6 @@
 {
   "name": "localplugins",
-  "description": "A small, community-built collection of Claude Code plugins. Three run entirely on your machine; docpin fetches version-matched library docs from public registries — always cited.",
+  "description": "A community-built collection of Claude Code plugins — brand-forge, content-multiplier, green-keeper, money-map, and docpin. Most run entirely on your machine; docpin fetches version-matched library docs (always cited); brand-forge's AI imagery is opt-in.",
   "owner": {
     "name": "localplugins"
   },
