@@ -22,6 +22,7 @@ Install any of the five, then reload:
 /plugin install money-map@localplugins
 /plugin install docpin@localplugins
 /plugin install brand-forge@localplugins
+/plugin install cv-forge@localplugins
 /reload-plugins
 ```
 
@@ -46,6 +47,7 @@ That's it.
 | 💸 | **money-map** | Makes sense of any bank/card CSV — categorized, summarized, anomalies flagged | `/understand` |
 | 📚 | **docpin** | Grounds Claude in docs matched to your installed library versions | `/docs` |
 | 🎨 | **brand-forge** | Generates on-brand logos, social templates & marketing graphics from a saved brand profile | `/brand-new` |
+| 📄 | **cv-forge** | Turns one JSON résumé into an ATS-friendly PDF, in the template that fits you | `/cv-new` |
 
 ### 🟢 green-keeper — keep your code green
 After the AI writes code, it fixes what's red with a *minimal* change and re-runs to prove it — and won't let a session end with newly-introduced red. **No fake-green:** it never skips a test or silences an error to pass.
@@ -88,8 +90,16 @@ Save a visual brand profile (palette, type, logo, tone) once, then generate on-b
 - `/brand-use <slug>` · switch brands in a multi-brand repo
 - `/brand-export` · rasterize an SVG to PNG
 
+### 📄 cv-forge — one résumé file, an ATS-ready PDF
+Keep your résumé as one versioned `resume.json` (JSON Resume), then render it through an HTML/CSS template and Print → Save as PDF in your browser. No Node, no API keys, no network — the whole happy path runs on your machine.
+
+- `/cv-new` · create `resume.json` (import an existing résumé or answer guided questions)
+- `/cv-make` · render the active résumé + template to `output/`
+- `/cv-status` · show the active résumé, template, and section counts
+- `/cv-use <slug>` · switch templates and re-render
+
 ## 🔒 What runs where
-Open source and MIT. **green-keeper, content-multiplier, and money-map run entirely on your machine** — no accounts, no API keys, no network, no telemetry; each reads only the files you point it at and writes results back locally. **docpin** is the exception by design: it fetches documentation from public package registries and doc hosts (npmjs.org, pypi.org, crates.io, proxy.golang.org, docs.rs, pkg.go.dev, GitHub) on demand, and cites the exact version and URL every time — still no accounts and no API keys. **brand-forge**'s vector engine also runs entirely on your machine; its AI-image engine is opt-in — off by default, reaching the network only when you enable it with your own provider key.
+Open source and MIT. **green-keeper, content-multiplier, money-map, and cv-forge run entirely on your machine** — no accounts, no API keys, no network, no telemetry; each reads only the files you point it at and writes results back locally. **docpin** is the exception by design: it fetches documentation from public package registries and doc hosts (npmjs.org, pypi.org, crates.io, proxy.golang.org, docs.rs, pkg.go.dev, GitHub) on demand, and cites the exact version and URL every time — still no accounts and no API keys. **brand-forge**'s vector engine also runs entirely on your machine; its AI-image engine is opt-in — off by default, reaching the network only when you enable it with your own provider key.
 
 > Plugins need Claude Code (CLI or desktop) — they don't run in the plain Claude chat app.
 

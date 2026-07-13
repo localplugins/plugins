@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Structural validator for the marketplace plugins (content-multiplier + green-keeper + money-map + docpin + brand-forge). Pure Python stdlib."""
+"""Structural validator for the marketplace plugins (content-multiplier + green-keeper + money-map + docpin + brand-forge + cv-forge). Pure Python stdlib."""
 import json
 import re
 import sys
@@ -11,6 +11,7 @@ GK = ROOT / "green-keeper"
 MM = ROOT / "money-map"
 DP = ROOT / "docpin"
 BF = ROOT / "brand-forge"
+CV = ROOT / "cv-forge"
 
 CHECKS = {}
 FAILURES = []
@@ -931,6 +932,121 @@ def _bf_readme():
         if token not in text:
             return fail("bf_readme", f"README must mention '{token}'")
     ok("bf_readme")
+
+
+# ---- cv-forge (fully local: JSON Resume -> HTML template -> browser print; no network anywhere) ----
+
+@register("cv_manifest")
+def _cv_manifest():
+    mkt, err = load_json(ROOT / ".claude-plugin" / "marketplace.json")
+    if err:
+        return fail("cv_manifest", err)
+    plug, err = load_json(CV / ".claude-plugin" / "plugin.json")
+    if err:
+        return fail("cv_manifest", err)
+    if plug.get("name") != "cv-forge":
+        return fail("cv_manifest", "plugin.json name must be 'cv-forge'")
+    for field in ("description", "version"):
+        if field not in plug:
+            return fail("cv_manifest", f"plugin.json missing '{field}'")
+    entry = next((p for p in mkt.get("plugins", []) if p.get("name") == "cv-forge"), None)
+    if entry is None:
+        return fail("cv_manifest", "marketplace.json does not list cv-forge")
+    if entry.get("source") != "./cv-forge":
+        return fail("cv_manifest", "cv-forge source must be './cv-forge'")
+    ok("cv_manifest")
+
+
+@register("cv_hook")
+def _cv_hook():
+    hj, err = load_json(CV / "hooks" / "hooks.json")
+    if err:
+        return fail("cv_hook", err)
+    ss = hj.get("hooks", {}).get("SessionStart")
+    if not ss:
+        return fail("cv_hook", "hooks.json missing SessionStart")
+    blob = json.dumps(ss)
+    if "session-start.sh" not in blob:
+        return fail("cv_hook", "SessionStart must call session-start.sh")
+    if "${CLAUDE_PLUGIN_ROOT}" not in blob:
+        return fail("cv_hook", "hook command must use ${CLAUDE_PLUGIN_ROOT}")
+    script = CV / "hooks" / "session-start.sh"
+    if not script.exists():
+        return fail("cv_hook", "missing session-start.sh")
+    if not os.access(script, os.X_OK):
+        return fail("cv_hook", "session-start.sh is not executable")
+    text = script.read_text()
+    for banned in ("curl", "wget", "nc "):
+        if banned in text:
+            return fail("cv_hook", f"session-start.sh must stay local (found '{banned.strip()}')")
+    ok("cv_hook")
+
+
+@register("cv_skill")
+def _cv_skill():
+    fm, body = frontmatter(CV / "skills" / "generate-resume" / "SKILL.md")
+    if fm is None:
+        return fail("cv_skill", body)
+    if fm.get("name") != "generate-resume":
+        return fail("cv_skill", "SKILL.md name must be 'generate-resume'")
+    if "description" not in fm:
+        return fail("cv_skill", "SKILL.md missing description")
+    for banned in ("WebFetch", "WebSearch"):
+        if banned in fm.get("allowed-tools", "") or banned in fm.get("tools", ""):
+            return fail("cv_skill", f"must not use {banned} (cv-forge is local)")
+    ok("cv_skill")
+
+
+def _cv_cmd(name):
+    key = f"cv_cmd_{name.replace('-', '_')}"
+    fm, body = frontmatter(CV / "commands" / f"{name}.md")
+    if fm is None:
+        return fail(key, body)
+    if "description" not in fm:
+        return fail(key, "frontmatter missing 'description'")
+    ok(key)
+
+
+@register("cv_cmd_cv_new")
+def _cv_cmd_cv_new():
+    _cv_cmd("cv-new")
+
+
+@register("cv_cmd_cv_make")
+def _cv_cmd_cv_make():
+    _cv_cmd("cv-make")
+
+
+@register("cv_cmd_cv_status")
+def _cv_cmd_cv_status():
+    _cv_cmd("cv-status")
+
+
+@register("cv_cmd_cv_use")
+def _cv_cmd_cv_use():
+    _cv_cmd("cv-use")
+
+
+@register("cv_schema")
+def _cv_schema():
+    data, err = load_json(CV / "schema" / "json-resume.schema.json")
+    if err:
+        return fail("cv_schema", err)
+    if not isinstance(data, dict) or ("properties" not in data and "$schema" not in data):
+        return fail("cv_schema", "json-resume.schema.json does not look like a JSON Schema")
+    ok("cv_schema")
+
+
+@register("cv_readme")
+def _cv_readme():
+    p = CV / "README.md"
+    if not p.exists():
+        return fail("cv_readme", f"missing {p}")
+    text = p.read_text()
+    for token in ("/cv-new", "cv-forge@localplugins"):
+        if token not in text:
+            return fail("cv_readme", f"README must mention '{token}'")
+    ok("cv_readme")
 
 
 def main():
