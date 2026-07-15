@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.1] — 2026-07-16
+SessionStart hook fires on all session sources.
+
+### Fixed
+- Dropped the `startup|resume` matcher on the SessionStart hook so the active brand kit loads on
+  every session source, including `clear`, `compact`, and desktop-app "new chat" paths that do
+  not emit a `startup` source.
+
 ## [0.6.0] — 2026-07-15
 Brand auto-import for `/brand-new` (Plan 4 wiring).
 

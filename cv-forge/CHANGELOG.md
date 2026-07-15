@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2] — 2026-07-16
+SessionStart hook fires on all session sources.
+
+### Fixed
+- Dropped the `startup|resume` matcher on the SessionStart hook so the active résumé context
+  loads on more session-creation paths (including `clear`, `compact`, and desktop "new chat").
+
 ## [0.1.1] — 2026-07-15
 Refreshed the bundled `minimal` résumé template preview.
 

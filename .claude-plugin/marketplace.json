@@ -33,13 +33,13 @@
       "name": "brand-forge",
       "source": "./brand-forge",
       "description": "Generate on-brand logos, social templates, and marketing graphics — vector assets run locally with no accounts or keys; AI imagery is opt-in.",
-      "version": "0.6.0"
+      "version": "0.6.1"
     },
     {
       "name": "cv-forge",
       "source": "./cv-forge",
       "description": "Turn one versioned résumé (JSON Resume) into an ATS-friendly PDF in the template that fits you — no Node, no keys, no network; just your browser.",
-      "version": "0.1.1"
+      "version": "0.1.2"
     }
   ]
 }
