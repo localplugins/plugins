@@ -1,0 +1,12 @@
+# Shell scripts and the extensionless hook context emitters run under bash on
+# Windows (Git Bash / WSL). Force LF so a CRLF checkout never corrupts the `#!`
+# shebang or `\r`-sensitive lines. Without this, git's autocrlf (often on by
+# default on Windows) can rewrite them to CRLF and break the SessionStart hook.
+*.sh                   text eol=lf
+**/hooks/*             text eol=lf
+**/lib/context/[0-9]*  text eol=lf
+
+# Binary assets: never normalize line endings (protects them from the rules above).
+*.png binary
+*.pdf binary
+*.ico binary
