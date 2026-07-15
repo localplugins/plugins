@@ -5,7 +5,7 @@
 
 `brand-forge` stores a versioned **visual brand profile** (palette, type, logo, tone,
 rules) and applies it to every asset it generates — so output is on-brand by default.
-It is the visual counterpart to `content-multiplier`, sharing the same `brand/` folder.
+It is the visual counterpart to `content-multiplier`, sharing the same `brand/` folder. Every asset it generates is also run through an accessibility and brand check before you ship it — contrast, clear-space, and palette, with anything it cannot verify flagged rather than passed silently.
 
 ![How brand-forge works](assets/how-it-works.svg)
 
@@ -28,6 +28,13 @@ Requires Node.js. The vector engine needs nothing else; the opt-in AI-image engi
   key (`GEMINI_API_KEY`/`OPENAI_API_KEY`). Text is kept out of the raster and added as
   a crisp SVG overlay (`lib/composite.mjs`). Pipeline: `lib/raster.mjs` (prompt) →
   `lib/genimage.mjs` (the only networked module) → `lib/composite.mjs` (logo/caption).
+
+## Accessible by default
+
+Accessibility is enforced, not optional. The `visual-guardian` subagent reviews every
+asset brand-forge generates, checking exact palette, **contrast**, logo **clear-space**,
+and type against the active brand, and **flags anything it cannot verify** rather than
+passing it silently. Most brand tools skip this; here it is part of the pipeline.
 
 ## Quickstart
 
