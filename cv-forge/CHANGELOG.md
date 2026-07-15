@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.1.1] — 2026-07-15
+Refreshed the bundled `minimal` résumé template preview.
+
 ## [0.1.0] — 2026-07-12
 Node-free core (Plan 1).
 

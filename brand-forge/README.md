@@ -84,8 +84,11 @@ console.log(l.wordmark);'
 ## Trust
 
 The vector core makes **no network calls** — a reviewer can confirm by inspection.
-The only networked component is the opt-in raster engine, isolated in one script and
-off unless you enable it. Nothing is ever auto-posted; output is local files you review.
+There are exactly **two opt-in networked paths**, each isolated in its own script and off
+unless you invoke it: the AI raster engine (`lib/genimage.mjs`, needs your own key) and the
+URL brand-importer (`lib/extract-brand-url.mjs`, used only when you pass a URL to `/brand-new`;
+http(s) only, and it refuses private/loopback addresses). Nothing is ever auto-posted; output
+is local files you review.
 
 ## PNG export
 

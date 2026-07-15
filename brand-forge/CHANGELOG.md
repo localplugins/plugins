@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.6.0] — 2026-07-15
+Brand auto-import for `/brand-new` (Plan 4 wiring).
+
+### Added
+- `lib/extract-brand.mjs` — dependency-free local extractor: proposes a palette + fonts from an
+  SVG, CSS/HTML, or PDF (embedded font names + fill colors). Raster images are out of scope for
+  the no-dependency path.
+- `lib/extract-brand-url.mjs` — opt-in URL importer: fetches a site and proposes a palette + fonts
+  from its CSS. SSRF-guarded (http(s) only, private/loopback refused, redirects re-validated, body
+  size- and time-capped). The one new networked module.
+- `/brand-new` step 3 wires both; extracted values are proposals the user confirms, never adopted
+  silently.
+
+### Changed
+- Refreshed the bundled `slide` preview asset.
+- Trust section now documents exactly two isolated opt-in network paths.
+
 ## [0.5.0] — 2026-07-12
 PNG export (Plan 5).
 
